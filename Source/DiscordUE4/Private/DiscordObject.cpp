@@ -240,9 +240,9 @@ void UDiscordObject::StopDiscordTimer()
 void UDiscordObject::Internal_CreateDiscordObject(const FString& InClientID, const bool bRequireDiscordRunning, const bool bStartElapsedTimer)
 {	
 #if WITH_EDITOR
-	discord::Result result = discord::Core::Create(FCString::Atoi64(*InClientID), DiscordCreateFlags_NoRequireDiscord, &core);
+	discord::Result result = discord::Core::Create(FCString::Strtoi64(*InClientID, NULL, 10), DiscordCreateFlags_NoRequireDiscord, &core);
 #else
-	discord::Result result = discord::Core::Create(FCString::Atoi64(*InClientID), bRequireDiscordRunning ? DiscordCreateFlags_Default : DiscordCreateFlags_NoRequireDiscord, &core);
+	discord::Result result = discord::Core::Create(FCString::Strtoi64(*InClientID, NULL, 10), bRequireDiscordRunning ? DiscordCreateFlags_Default : DiscordCreateFlags_NoRequireDiscord, &core);
 #endif
 	if (result == discord::Result::Ok)
 	{
